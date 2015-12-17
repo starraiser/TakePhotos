@@ -2,6 +2,7 @@ package com.example.administrator.takephotos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,10 +27,16 @@ public class MainActivity extends AppCompatActivity {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
                 //Intent intent = new Intent(MainActivity.class,FullscreenActivity.class);
+                /*
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,FullscreenActivity.class);
-                MainActivity.this.startActivity(intent);
+                intent.setClass(MainActivity.this,Photo.class);
+                MainActivity.this.startActivity(intent);*/
+                //startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE",TAKE_PICTURE));
 
+                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,Photo.class);
+                startActivity(intent);
             }
         });
     }
