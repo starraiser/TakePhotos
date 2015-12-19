@@ -1,8 +1,8 @@
 package com.example.administrator.takephotos;
 
 /**
- * @author  harvic
- * @date 2014.8.13
+ * @author  star
+ * @date 2015.12
  */
 import java.io.File;
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class Pager extends Activity {
 
     private Animation animationTranslate, animationRotate, animationScale;
     private static int width, height;
-    private RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
-    //private android.support.design.widget.CoordinatorLayout.LayoutParams params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
+    //private RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
+    private android.support.design.widget.CoordinatorLayout.LayoutParams params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
     private static Boolean isClick = false;
 
     private View view1, view2, view3;
@@ -63,19 +63,18 @@ public class Pager extends Activity {
         setContentView(R.layout.viewpager);
 
         FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
-        final FloatingActionButton cancelFab = (FloatingActionButton) findViewById(R.id.cancelFab);
-        final FloatingActionButton saveFab = (FloatingActionButton) findViewById(R.id.saveFab);
-        editFab.setVisibility(View.INVISIBLE);
-
+        //final FloatingActionButton cancelFab = (FloatingActionButton) findViewById(R.id.cancelFab);
+        final FloatingActionButton saveFab = (FloatingActionButton) findViewById(R.id.uploadFab);
+        //editFab.setVisibility(View.INVISIBLE);
+/*
         cancelFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancelFab.startAnimation(animRotate(-45.0f, 0.5f, 0.45f));
                 saveFab.startAnimation(animTranslate(0.0f, -180.0f, 10, height - 240, saveFab, 100));
             }
-        });
+        });*/
 
-        //Button fab = (Button)findViewById(R.id.fff);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         LayoutInflater inflater = getLayoutInflater();
         view1 = inflater.inflate(R.layout.layout1, null);
@@ -147,14 +146,14 @@ public class Pager extends Activity {
 
             }
         });
-        //System.out.println(pagerAdapter.getItemPosition("正面"));
 
+        //编辑按钮监听器
         editFab.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 if(0 == page){
                     img1=(ImageView)findViewById(R.id.img1);
                     BitmapDrawable bitmapDrawable1 = (BitmapDrawable)img1.getDrawable();
-
+                    /*
                     if(bitmapDrawable1 != null) {
                         Bundle bundle = new Bundle();
                         Bitmap bitmap = bitmapDrawable1.getBitmap();
@@ -165,8 +164,7 @@ public class Pager extends Activity {
                         startActivity(intent);
                     }
                     //原来无图片时直接调用照相机
-                    else {
-
+                    else {*/
                         try {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -186,11 +184,12 @@ public class Pager extends Activity {
                         }catch(Exception e) {
                             e.printStackTrace();
                         }
-                    }
+                    //}
                 }else{
                     img2=(ImageView)findViewById(R.id.img2);
                     BitmapDrawable bitmapDrawable2 = (BitmapDrawable)img2.getDrawable();
 
+                    /*
                     if(bitmapDrawable2 != null) {
                         Bundle bundle = new Bundle();
                         Bitmap bitmap = bitmapDrawable2.getBitmap();
@@ -202,7 +201,7 @@ public class Pager extends Activity {
                     }
                     //原来无图片时直接调用照相机
                     else {
-
+*/
                         try {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -222,14 +221,13 @@ public class Pager extends Activity {
                         }catch(Exception e) {
                             e.printStackTrace();
                         }
-                    }
+                    //}
                 }
             }
         });
-
         viewPager.setAdapter(pagerAdapter);
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -254,6 +252,7 @@ public class Pager extends Activity {
             //    img1.setImageBitmap(bitmap);
             //}
         }
+
         //获取相机数据填入第二个ImageView
         else if( 2 == requestCode ){
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -274,6 +273,8 @@ public class Pager extends Activity {
 
 
 
+    //按钮特效动画
+    /*
     protected Animation setAnimScale(float toX, float toY)
     {
         // TODO Auto-generated method stub
@@ -338,8 +339,8 @@ public class Pager extends Activity {
             public void onAnimationEnd(Animation animation)
             {
                 // TODO Auto-generated method stub
-                params = new RelativeLayout.LayoutParams(0, 0);
-                //params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
+                //params = new RelativeLayout.LayoutParams(0, 0);
+                params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
                 params.height = 50;
                 params.width = 50;
                 params.setMargins(lastX, lastY, 0, 0);
@@ -350,5 +351,5 @@ public class Pager extends Activity {
         });
         animationTranslate.setDuration(durationMillis);
         return animationTranslate;
-    }
+    }*/
 }
