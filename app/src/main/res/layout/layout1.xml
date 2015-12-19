@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <ImageView
+    android:id="@+id/img1"
+    android:scaleType="fitCenter"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@drawable/t1"/>
+    android:background="@drawable/t1"/>
 </LinearLayout>

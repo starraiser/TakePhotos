@@ -15,13 +15,23 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.io.File;
 import android.media.ThumbnailUtils;
+import android.widget.RelativeLayout;
 
 public class Photo extends AppCompatActivity {
+
+    private Animation animationTranslate, animationRotate, animationScale;
+    private static int width, height;
+    private RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
+    private static Boolean isClick = false;
 
     private ImageView img1;
     private ImageView img2;
