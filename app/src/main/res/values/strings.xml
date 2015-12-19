@@ -7,4 +7,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_photo">Photo</string>
     <string name="title_activity_show_image">showImage</string>
+    <string name="title_activity_view_pager">ViewPager</string>
 </resources>

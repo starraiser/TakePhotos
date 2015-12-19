@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,Photo.class);
+                intent.setClass(MainActivity.this,Pager.class);
                 startActivity(intent);
             }
         });

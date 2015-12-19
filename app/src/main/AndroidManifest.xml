@@ -32,6 +32,8 @@
         <activity
             android:name=".showImage"
             android:label="@string/title_activity_show_image"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Pager"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
