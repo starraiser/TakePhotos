@@ -37,26 +37,37 @@ import android.widget.RelativeLayout;
 import com.example.administrator.takephotos.R;
 
 public class Pager extends Activity {
+    private final int PHOTO_1 = 1;
+    private final int PHOTO_2 = 2;
+    private final int UPLOAD = 3;
 
-    private Animation animationTranslate, animationRotate, animationScale;
-    private static int width, height;
+    //private Animation animationTranslate, animationRotate, animationScale;
+    //private static int width, height;
     //private RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
-    private android.support.design.widget.CoordinatorLayout.LayoutParams params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
-    private static Boolean isClick = false;
+    //private android.support.design.widget.CoordinatorLayout.LayoutParams params = new android.support.design.widget.CoordinatorLayout.LayoutParams(0, 0);
+    //private static Boolean isClick = false;
 
-    private View view1, view2, view3;
+    private View view1, view2;
     private List<View> viewList;// view数组
     private ViewPager viewPager; // 对应的viewPager
     private int page;
 
+    //显示图片的ImageView
     private ImageView img1;
     private ImageView img2;
 
+    //图片bitmap
+    Bitmap bitmap1;
+    Bitmap bitmap2;
+
+    //图片文件夹路径
     private String savePath;
 
+    //图片文件
     private File pic1File;
     private File pic2File;
 
+    //ViewPager标题
     private List<String> titleList;
 
     @Override
@@ -64,10 +75,10 @@ public class Pager extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager);
 
-        FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
+        final FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
         //final FloatingActionButton cancelFab = (FloatingActionButton) findViewById(R.id.cancelFab);
-        final FloatingActionButton saveFab = (FloatingActionButton) findViewById(R.id.uploadFab);
-        //editFab.setVisibility(View.INVISIBLE);
+        final FloatingActionButton uploadFab = (FloatingActionButton) findViewById(R.id.uploadFab);
+
 /*
         cancelFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +165,7 @@ public class Pager extends Activity {
             public void onClick(View view){
                 if(0 == page){
                     img1=(ImageView)findViewById(R.id.img1);
-                    BitmapDrawable bitmapDrawable1 = (BitmapDrawable)img1.getDrawable();
+                    //BitmapDrawable bitmapDrawable1 = (BitmapDrawable)img1.getDrawable();
                     /*
                     if(bitmapDrawable1 != null) {
                         Bundle bundle = new Bundle();
@@ -180,16 +191,15 @@ public class Pager extends Activity {
                             }
                             String pic1Path=savePath+"pic1.jpg";
                             File file = new File(pic1Path);
-                            System.out.println(pic1Path);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                            startActivityForResult(intent, 1);
+                            startActivityForResult(intent, PHOTO_1);
                         }catch(Exception e) {
                             e.printStackTrace();
                         }
                     //}
                 }else{
                     img2=(ImageView)findViewById(R.id.img2);
-                    BitmapDrawable bitmapDrawable2 = (BitmapDrawable)img2.getDrawable();
+                    //BitmapDrawable bitmapDrawable2 = (BitmapDrawable)img2.getDrawable();
 
                     /*
                     if(bitmapDrawable2 != null) {
@@ -210,21 +220,27 @@ public class Pager extends Activity {
                             //Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"pic1.jpg"));
                             //intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
                             savePath = "mnt/sdcard/TakePhotos/";
-                            pic1File = new File(savePath);
-                            if (!pic1File.exists()) {
-                                //pic1File.createNewFile();
-                                pic1File.mkdir();
+                            pic2File = new File(savePath);
+                            if (!pic2File.exists()) {
+                                pic2File.mkdir();
                             }
                             String pic2Path=savePath+"pic2.jpg";
                             File file = new File(pic2Path);
-                            System.out.println(pic2Path);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                            startActivityForResult(intent, 2);
+                            startActivityForResult(intent, PHOTO_2);
                         }catch(Exception e) {
                             e.printStackTrace();
                         }
                     //}
                 }
+            }
+        });
+
+        //确定照片
+        uploadFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         viewPager.setAdapter(pagerAdapter);
@@ -238,45 +254,57 @@ public class Pager extends Activity {
             return;
         }
         //获取相机数据填入第一个ImageView
-        if ( 1 == requestCode ) {/*
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds=true;
-            Bitmap bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
-            options.inJustDecodeBounds=false;
-            int be = (int)(options.outHeight/(float)200);
-            if(be<=0)
-                be =1;
-            options.inSampleSize = be;
-            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);*/
+        if ( PHOTO_1 == requestCode ) {
             try {
+                //获取文件输入流
                 FileInputStream file = new FileInputStream("mnt/sdcard/TakePhotos/pic1.jpg");
-                //img1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Bitmap bm = BitmapFactory.decodeStream(file);
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                //为位图设置100K的缓存
+                opts.inTempStorage = new byte[100*1024];
+                //设置位图颜色显示优化方式
+                opts.inPreferredConfig=Bitmap.Config.RGB_565;
+                //设置图片可以被回收
+                opts.inPurgeable=true;
+                //设置位图缩放比例
+                opts.inSampleSize=4;
+                //设置解码位图的尺寸信息
+                opts.inInputShareable=true;
+                //解码位图
+                bitmap1=BitmapFactory.decodeStream(file,null,opts);
+                //设置ImageView背景
                 img1.setBackgroundColor(Color.BLACK);
-                img1.setImageBitmap(bm);
+                //显示位图
+                img1.setImageBitmap(bitmap1);
             }catch (Exception e){
-
+                e.printStackTrace();
             }
-            //Bitmap bitmap = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",null);
-            //if(null != bitmap){
-            //    img1.setImageBitmap(bitmap);
-            //}
         }
 
         //获取相机数据填入第二个ImageView
-        else if( 2 == requestCode ){
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds=true;
-            Bitmap bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
-            options.inJustDecodeBounds=false;
-            int be = (int)(options.outHeight/(float)200);
-            if(be<=0)
-                be =1;
-            options.inSampleSize = be;
-            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic2.jpg",options);
-            //img2.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            img2.setBackgroundColor(Color.BLACK);
-            img2.setImageBitmap(bm);
+        else if( PHOTO_2 == requestCode ){
+            try {
+                //获取文件输入流
+                FileInputStream file = new FileInputStream("mnt/sdcard/TakePhotos/pic2.jpg");
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                //为位图设置100K的缓存
+                opts.inTempStorage = new byte[100*1024];
+                //设置位图颜色显示优化方式
+                opts.inPreferredConfig=Bitmap.Config.RGB_565;
+                //设置图片可以被回收
+                opts.inPurgeable=true;
+                //设置位图缩放比例
+                opts.inSampleSize=4;
+                //设置解码位图的尺寸信息
+                opts.inInputShareable=true;
+                //解码位图
+                bitmap2=BitmapFactory.decodeStream(file,null,opts);
+                //设置ImageView背景
+                img2.setBackgroundColor(Color.BLACK);
+                //显示位图
+                img2.setImageBitmap(bitmap2);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
