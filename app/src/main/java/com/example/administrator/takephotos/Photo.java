@@ -154,16 +154,25 @@ public class Photo extends AppCompatActivity {
             if(bitmapDrawabletest!=null){
                 System.out.println("12312312312312312312321");
             }*/
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds=true;
-            Bitmap bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
-            options.inJustDecodeBounds=false;
+            //BitmapFactory.Options options = new BitmapFactory.Options();
+            //options.inJustDecodeBounds=true;
+            //Bitmap bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg");
+            Uri uri = data.getData();
+            Bitmap bm;
+            try {
+                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                bitmapOptions.inSampleSize = 4;
+                bm = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri), null, bitmapOptions);
+            }catch (Exception e){
+                bm=null;
+            }
+            /*options.inJustDecodeBounds=false;
             int be = (int)(options.outHeight/(float)200);
             if(be<=0)
                 be =1;
             options.inSampleSize = be;
-            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
-            img1.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);*/
+            img1.setScaleType(ImageView.ScaleType.CENTER);
             img1.setBackgroundColor(Color.BLACK);
             img1.setImageBitmap(bm);
             //Bitmap bitmap = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",null);

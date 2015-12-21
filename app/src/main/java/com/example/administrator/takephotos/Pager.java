@@ -5,6 +5,8 @@ package com.example.administrator.takephotos;
  * @date 2015.12
  */
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -230,11 +232,13 @@ public class Pager extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(RESULT_CANCELED == resultCode){
+            return;
+        }
         //获取相机数据填入第一个ImageView
-        if ( 1 == requestCode ) {
+        if ( 1 == requestCode ) {/*
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds=true;
             Bitmap bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
@@ -243,10 +247,16 @@ public class Pager extends Activity {
             if(be<=0)
                 be =1;
             options.inSampleSize = be;
-            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);
-            img1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            img1.setBackgroundColor(Color.BLACK);
-            img1.setImageBitmap(bm);
+            bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",options);*/
+            try {
+                FileInputStream file = new FileInputStream("mnt/sdcard/TakePhotos/pic1.jpg");
+                //img1.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                Bitmap bm = BitmapFactory.decodeStream(file);
+                img1.setBackgroundColor(Color.BLACK);
+                img1.setImageBitmap(bm);
+            }catch (Exception e){
+
+            }
             //Bitmap bitmap = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic1.jpg",null);
             //if(null != bitmap){
             //    img1.setImageBitmap(bitmap);
@@ -264,7 +274,7 @@ public class Pager extends Activity {
                 be =1;
             options.inSampleSize = be;
             bm = BitmapFactory.decodeFile("mnt/sdcard/TakePhotos/pic2.jpg",options);
-            img2.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            //img2.setScaleType(ImageView.ScaleType.FIT_CENTER);
             img2.setBackgroundColor(Color.BLACK);
             img2.setImageBitmap(bm);
         }
