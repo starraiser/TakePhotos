@@ -275,6 +275,7 @@ public class Pager extends Activity {
                 img1.setBackgroundColor(Color.BLACK);
                 //显示位图
                 img1.setImageBitmap(bitmap1);
+                
             }catch (Exception e){
                 e.printStackTrace();
             }
