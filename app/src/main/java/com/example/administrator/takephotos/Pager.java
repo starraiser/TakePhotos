@@ -36,6 +36,8 @@ import android.widget.RelativeLayout;
 
 import com.example.administrator.takephotos.R;
 
+import uk.co.senab.photoview.PhotoView;
+
 public class Pager extends Activity {
     private final int PHOTO_1 = 1;
     private final int PHOTO_2 = 2;
@@ -54,6 +56,7 @@ public class Pager extends Activity {
 
     //显示图片的ImageView
     private ImageView img1;
+    private PhotoView photoView;
     private ImageView img2;
 
     //图片bitmap
@@ -164,7 +167,8 @@ public class Pager extends Activity {
         editFab.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 if(0 == page){
-                    img1=(ImageView)findViewById(R.id.img1);
+                    //img1=(ImageView)findViewById(R.id.img1);
+                    photoView = (PhotoView)findViewById(R.id.img1);
                     //BitmapDrawable bitmapDrawable1 = (BitmapDrawable)img1.getDrawable();
                     /*
                     if(bitmapDrawable1 != null) {
@@ -272,9 +276,11 @@ public class Pager extends Activity {
                 //解码位图
                 bitmap1=BitmapFactory.decodeStream(file,null,opts);
                 //设置ImageView背景
-                img1.setBackgroundColor(Color.BLACK);
+                //img1.setBackgroundColor(Color.BLACK);
+                photoView.setBackgroundColor(Color.BLACK);
                 //显示位图
-                img1.setImageBitmap(bitmap1);
+                //img1.setImageBitmap(bitmap1);
+                photoView.setImageBitmap(bitmap1);
                 
             }catch (Exception e){
                 e.printStackTrace();
