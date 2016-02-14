@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.administrator.takephotos.R;
+
 public class showImage extends AppCompatActivity {
 
     private ImageView pic;
