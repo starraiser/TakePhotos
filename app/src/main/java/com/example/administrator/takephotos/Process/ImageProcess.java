@@ -8,7 +8,7 @@ import android.graphics.Color;
  * Created by hasee on 2016/2/5.
  */
 public class ImageProcess {
-    ImageProcess(){
+    public ImageProcess(){
 
     }
 

@@ -6,7 +6,6 @@ package com.example.administrator.takephotos;
  */
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,15 +23,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.example.administrator.takephotos.R;
+import com.example.administrator.takephotos.Process.OtsuBinaryFilter;
 
 import uk.co.senab.photoview.PhotoView;
 
@@ -270,7 +261,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=4;
+                opts.inSampleSize=10;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
@@ -280,7 +271,11 @@ public class Pager extends Activity {
                 photoView.setBackgroundColor(Color.BLACK);
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
-                photoView.setImageBitmap(bitmap1);
+                OtsuBinaryFilter filter = new OtsuBinaryFilter();
+                Bitmap bit =null;
+                bit = filter.edge(bitmap1);
+
+                photoView.setImageBitmap(bit);
                 
             }catch (Exception e){
                 e.printStackTrace();
@@ -300,7 +295,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=4;
+                opts.inSampleSize=10;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
