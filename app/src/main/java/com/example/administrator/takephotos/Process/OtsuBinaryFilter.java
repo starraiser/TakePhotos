@@ -9,11 +9,54 @@ import android.graphics.Color;
 
 public class OtsuBinaryFilter {
 
-    public OtsuBinaryFilter()
-    {
+    public OtsuBinaryFilter() {
         System.out.println("Otsu Threshold Binary Filter...");
     }
 
+    //阈值二值化
+    public Bitmap filter2(Bitmap src) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        Bitmap dest = null;
+        if (dest == null)
+            dest = Bitmap.createBitmap(width, height, src.getConfig());
+
+        int[] inPixels = new int[width * height];
+        int[] outPixels = new int[width * height];
+        src.getPixels(inPixels, 0, width, 0, 0, width, height);
+        int index = 0;
+
+        for (int row = 0; row < height; row++) {
+            int ta = 0, tr = 0, tg = 0, tb = 0;
+            for (int col = 0; col < width; col++) {
+                index = row * width + col;
+                ta = (inPixels[index] >> 24) & 0xff;
+                tr = (inPixels[index] >> 16) & 0xff;
+                tg = (inPixels[index] >> 8) & 0xff;
+                tb = inPixels[index] & 0xff;
+                int gray = (int) (0.299 * tr + 0.587 * tg + 0.114 * tb);
+                inPixels[index] = (ta << 24) | (gray << 16) | (gray << 8) | gray;
+            }
+        }
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                index = row * width + col;
+                int gray = (inPixels[index] >> 8) & 0xff;
+                if (gray > 10) {
+                    gray = 255;
+                    outPixels[index] = (0xff << 24) | (gray << 16) | (gray << 8) | gray;
+                } else {
+                    gray = 0;
+                    outPixels[index] = (0xff << 24) | (gray << 16) | (gray << 8) | gray;
+                }
+
+            }
+        }
+        dest.setPixels(outPixels, 0, width, 0, 0, width, height);
+        return  dest;
+    }
     //OTSU二值化操作
     public Bitmap filter(Bitmap src) {
         int width = src.getWidth();
@@ -279,6 +322,58 @@ public class OtsuBinaryFilter {
         return dest;
     }
 
+    /**
+     * 求外接矩形
+     * @param src 源图片
+     * @param x1 计算部位左上角的x坐标
+     * @param y1 计算部位左上角的y坐标
+     * @param x2 计算部位右下角的x坐标
+     * @param y2 计算部位右下角的y坐标
+     * @return 返回外接矩形的左上角、右下角的坐标，以int数组存储依次为左上角的x坐标，左上角的y坐标，
+     *         右下角的x坐标，右下角的y坐标
+     */
+    public int[] rectangle(Bitmap src,int x1, int y1, int x2, int y2){
+        int[] vertex = new int[4];
+        for(int i = x1; i < x2; i++){
+            for(int j = y1; j < y2; j++){
+                int pixel = src.getPixel(i, j);
+                if(pixel == Color.BLACK){
+                    vertex[0] = i;
+                }
+            }
+        }
+        for(int i = y1; i < y2; i++){
+            for(int j = x1; j < x2; j++){
+                int pixel = src.getPixel(i, j);
+                if(pixel == Color.BLACK){
+                    vertex[1] = i;
+                }
+            }
+        }
+        for(int i = x2; i > x1; i--){
+            for(int j = y1; j < y2; j++){
+                int pixel = src.getPixel(i, j);
+                if(pixel == Color.BLACK){
+                    vertex[2] = i;
+                }
+            }
+        }
+        for(int i = y2; i > x1; i--){
+            for(int j = x1; j < x2; j++){
+                int pixel = src.getPixel(i, j);
+                if(pixel == Color.BLACK){
+                    vertex[3] = i;
+                }
+            }
+        }
+        return vertex;
+    }
+
+    /**
+     * 判断像素点是否为黑色
+     * @param pixel 像素值
+     * @return 返回布尔变量
+     */
     public boolean isBlack(int pixel){
         int r = Color.red(pixel);
         int g = Color.green(pixel);
@@ -289,6 +384,11 @@ public class OtsuBinaryFilter {
         return false;
     }
 
+    /**
+     * 判断像素点是否为白色
+     * @param pixel 像素值
+     * @return 返回布尔变量
+     */
     public boolean isWhite(int pixel){
         int r = Color.red(pixel);
         int g = Color.green(pixel);

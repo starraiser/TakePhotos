@@ -37,7 +37,6 @@
         <activity
             android:name=".Pager"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestProcess"></activity>
     </application>
 
 </manifest>
