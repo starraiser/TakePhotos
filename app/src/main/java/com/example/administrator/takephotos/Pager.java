@@ -273,7 +273,7 @@ public class Pager extends Activity {
                 //img1.setImageBitmap(bitmap1);
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
                 Bitmap bit =null;
-                bit = filter.edge(bitmap1);
+                bit = filter.filter(bitmap1);
 
                 photoView.setImageBitmap(bit);
                 
@@ -303,7 +303,10 @@ public class Pager extends Activity {
                 //设置ImageView背景
                 img2.setBackgroundColor(Color.BLACK);
                 //显示位图
-                img2.setImageBitmap(bitmap2);
+                OtsuBinaryFilter filter = new OtsuBinaryFilter();
+                Bitmap bit =null;
+                bit = filter.filter(bitmap2);
+                img2.setImageBitmap(bit);
             }catch (Exception e){
                 e.printStackTrace();
             }
