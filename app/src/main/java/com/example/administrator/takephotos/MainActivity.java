@@ -11,10 +11,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.administrator.takephotos.Database.DBManager;
+
 public class MainActivity extends AppCompatActivity {
 
+    DBManager database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        database = new DBManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
