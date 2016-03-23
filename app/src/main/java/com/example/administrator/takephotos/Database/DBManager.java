@@ -87,7 +87,7 @@ public class DBManager {
         Cursor cursor = db.rawQuery("select * from USERINFO where userId = ?",new String[]{String.valueOf(userId)});
         while(cursor.moveToNext()){
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
-            int _userId = cursor.getInt(cursor.getColumnIndex("userName"));
+            int _userId = cursor.getInt(cursor.getColumnIndex("userId"));
             double height = cursor.getDouble(cursor.getColumnIndex("height"));
             double breast = cursor.getDouble(cursor.getColumnIndex("breast"));
             double waist = cursor.getDouble(cursor.getColumnIndex("waist"));

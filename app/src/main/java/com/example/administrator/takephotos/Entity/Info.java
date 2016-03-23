@@ -104,10 +104,11 @@ public class Info {
         double x4 = x2*x2;
         double x5 = x1*x2;
         if(this._sex == "man"){
-            this._breast = 101.99-4.801*x1+0.294*x2+0.014*x3-0.152*x4+0.277*x5;
+            this._waist = 101.99-4.801*x1+0.294*x2+0.014*x3-0.152*x4+0.277*x5;
         } else {
-            this._breast = 1.933+1.756*x1+1.122*x2+0.009*x4-0.002*x5;
+            this._waist = 1.933+1.756*x1+1.122*x2+0.009*x4-0.002*x5;
         }
+        System.out.println(x1+" "+x2+" "+x3+" "+x4+" "+x5);
     }
 
     public void set_hipshot(double width,double thickness){
@@ -117,9 +118,9 @@ public class Info {
         double x4 = x2*x2;
         double x5 = x1*x2;
         if(this._sex == "man"){
-            this._breast = 217.07-9.616*x1-0.366*x2+0.174*x3+0.052*x4-0.026*x5;
+            this._hipshot = 217.07-9.616*x1-0.366*x2+0.174*x3+0.052*x4-0.026*x5;
         } else {
-            this._breast = 4.049+2.465*x1-0.025*x3+0.043*x5;
+            this._hipshot = 4.049+2.465*x1-0.025*x3+0.043*x5;
         }
     }
 }

@@ -43,13 +43,13 @@ public class BodyData {
         setSideHeadLine(side);
 
         if(getFrontFootLine(front)!=0){  // 正面身高像素
-            frontHeightPixel = frontHeadLine - getFrontFootLine(front) + 1;
+            frontHeightPixel = getFrontFootLine(front) - frontHeadLine + 1;
         } else {
             frontHeightPixel = -1;
         }
 
         if(getSideFootLine(side)!=0){  // 侧面身高像素
-            sideHeightPixel = sideHeadLine - getSideFootLine(side) + 1;
+            sideHeightPixel = getSideFootLine(side) - sideHeadLine + 1;
         } else {
             sideHeightPixel = -1;
         }
@@ -60,6 +60,9 @@ public class BodyData {
                 frontBlack[i]++;
             }
         }
+//        for(int i =0;i<front.getHeight();i++){
+//            System.out.println(frontBlack[i]);
+//        }
 
         for(int i = 0;i<side.getHeight();i++){  // 侧面每行黑点数
             for(int j = 0;j<side.getWidth();j++){
@@ -87,6 +90,7 @@ public class BodyData {
                 maxPosition = i;
             }
         }
+
         thickness = maxBlack*(height/sideHeightPixel);
         sideBreastOffset = maxPosition;
         return thickness;
@@ -94,6 +98,7 @@ public class BodyData {
 
     public float getBreastWidth(){
         float width = 0;
+        getBreastThickness();
         frontBreastOffset = ((sideBreastOffset-sideHeadLine)/sideHeightPixel)*frontHeightPixel+frontHeadLine;
         width = frontBlack[frontBreastOffset];
         width = width*(height/frontHeightPixel);
@@ -102,9 +107,11 @@ public class BodyData {
 
     public float getWaistThickness(){
         float thickness = 0;
+        getWaistWidth();
         sideWaistOffset = ((frontWaistOffset-frontHeadLine)/frontHeightPixel)*sideHeightPixel+sideHeadLine;
         thickness = sideBlack[sideWaistOffset];
         thickness = thickness*(height/sideHeightPixel);
+
         return thickness;
     }
 
@@ -124,14 +131,17 @@ public class BodyData {
         }
         width = minBlack*(height/frontHeightPixel);
         frontWaistOffset = minPosition;
+
         return width;
     }
 
     public float getHipshotThickness(){
         float thickness = 0;
+        getHipshotWidth();
         sideHipshotOffset = ((frontHipshotOffset-frontHeadLine)/frontHeightPixel)*sideHeightPixel+sideHeadLine;
         thickness = sideBlack[sideHipshotOffset];
         thickness = thickness*(height/sideHeightPixel);
+
         return thickness;
     }
 
@@ -151,6 +161,7 @@ public class BodyData {
         }
         width = maxBlack*(height/frontHeightPixel);
         frontWaistOffset = maxPosition;
+
         return width;
     }
 

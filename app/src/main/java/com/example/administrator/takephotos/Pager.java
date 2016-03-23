@@ -389,7 +389,7 @@ public class Pager extends Activity {
                                     bundle.putDouble("breast", info.get_breast());
                                     bundle.putDouble("hipshot", info.get_hipshot());
                                     bundle.putString("sex", info.get_sex());
-                                    bundle.putInt("userId",userId);
+                                    bundle.putInt("userId", userId);
 
                                     database.addUserInfo(info);
 
