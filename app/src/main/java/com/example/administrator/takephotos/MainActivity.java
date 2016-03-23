@@ -250,8 +250,5 @@ public class MainActivity extends AppCompatActivity {
             hipshot.setVisibility(View.INVISIBLE);
             text.setText("无数据");
         }
-        /*SimpleAdapter newAdapter = new SimpleAdapter(this,getData(),R.layout.list_layout,
-                new String[]{"title","time"},new int[]{R.id.list_title,R.id.list_time});
-        listView.setAdapter(newAdapter);*/
     }
 }

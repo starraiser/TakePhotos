@@ -60,9 +60,6 @@ public class BodyData {
                 frontBlack[i]++;
             }
         }
-//        for(int i =0;i<front.getHeight();i++){
-//            System.out.println(frontBlack[i]);
-//        }
 
         for(int i = 0;i<side.getHeight();i++){  // 侧面每行黑点数
             for(int j = 0;j<side.getWidth();j++){
@@ -93,7 +90,6 @@ public class BodyData {
 
         thickness = maxBlack*(height/sideHeightPixel);
         sideBreastOffset = maxPosition;
-        System.out.println("breastthicknese"+thickness);
         return thickness;
     }
 
@@ -103,7 +99,6 @@ public class BodyData {
         frontBreastOffset = ((sideBreastOffset-sideHeadLine)/sideHeightPixel)*frontHeightPixel+frontHeadLine;
         width = frontBlack[frontBreastOffset];
         width = width*(height/frontHeightPixel);
-        System.out.println("breastwidth"+width);
         return width;
     }
 

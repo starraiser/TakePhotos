@@ -10,7 +10,7 @@ import android.graphics.Color;
 public class OtsuBinaryFilter {
 
     public OtsuBinaryFilter() {
-        System.out.println("Otsu Threshold Binary Filter...");
+        System.out.println("Otsu");
     }
 
     //阈值二值化

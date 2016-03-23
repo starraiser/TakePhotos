@@ -108,7 +108,6 @@ public class Info {
         } else {
             this._waist = 1.933+1.756*x1+1.122*x2+0.009*x4-0.002*x5;
         }
-        System.out.println(x1+" "+x2+" "+x3+" "+x4+" "+x5);
     }
 
     public void set_hipshot(double width,double thickness){
