@@ -84,7 +84,10 @@ public class DBManager {
     public Info getInfoById(int userId){
         Info info = new Info();
         ContentValues cv = new ContentValues();
-        Cursor cursor = db.rawQuery("select * from USERINFO where userId = ?",new String[]{String.valueOf(userId)});
+        Cursor cursor = db.rawQuery("select * from USERINFO where userId = ?", new String[]{String.valueOf(userId)});
+        if(cursor.getCount() == 0){
+            return null;
+        }
         while(cursor.moveToNext()){
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
             int _userId = cursor.getInt(cursor.getColumnIndex("userId"));
@@ -96,5 +99,67 @@ public class DBManager {
             info = new Info(_id,_userId,height,breast,waist,hipshot,sex);
         }
         return info;
+    }
+
+    /**
+     * 登录信息缓存操作
+     */
+    public void addCache(String name, String password, int flag, int auto){  // 添加或更新记住用户名的缓存
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select _id from CACHE",null);
+        if(0 == cursor.getCount()){
+            db.execSQL("insert into CACHE values(null,?,?,?,?)",
+                    new String[]{name,password,Integer.toString(flag), Integer.toString(auto)});
+        }
+        else{
+            db.execSQL("update CACHE set userName=? ,password=?,flag=?,auto=? where _id=1",
+                    new String[]{name,password,Integer.toString(flag), Integer.toString(auto)});
+        }
+    }
+
+    public String getCacheName(){  // 获取缓存的用户名
+        String name="";
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select userName from CACHE where _id=?",new String[]{Integer.toString(1)});
+
+        while(cursor.moveToNext()){
+            name=cursor.getString(cursor.getColumnIndex("userName"));
+        }
+
+        return name;
+    }
+
+    public String getCachePassword(){  // 获取缓存的密码
+        String password="";
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select password from CACHE where _id=?",new String[]{Integer.toString(1)});
+
+        while(cursor.moveToNext()){
+            password=cursor.getString(cursor.getColumnIndex("password"));
+        }
+
+        return password;
+    }
+
+    public int getCacheFlag(){  // 是否记住密码
+        int flag = 0;
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select flag from CACHE where _id=?", new String[]{Integer.toString(1)});
+
+        while(cursor.moveToNext()){
+            flag = cursor.getInt(cursor.getColumnIndex("flag"));
+        }
+        return flag;
+    }
+
+    public int getAuto(){  // 是否自动登录
+        int flag = 0;
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select auto from CACHE where _id=?",new String[]{Integer.toString(1)});
+
+        while(cursor.moveToNext()){
+            flag = cursor.getInt(cursor.getColumnIndex("auto"));
+        }
+        return flag;
     }
 }

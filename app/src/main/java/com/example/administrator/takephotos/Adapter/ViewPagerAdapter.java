@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Adapter;
 
 import java.util.List;
 import android.support.v4.view.PagerAdapter;

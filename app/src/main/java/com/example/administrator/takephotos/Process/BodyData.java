@@ -93,6 +93,7 @@ public class BodyData {
 
         thickness = maxBlack*(height/sideHeightPixel);
         sideBreastOffset = maxPosition;
+        System.out.println("breastthicknese"+thickness);
         return thickness;
     }
 
@@ -102,6 +103,7 @@ public class BodyData {
         frontBreastOffset = ((sideBreastOffset-sideHeadLine)/sideHeightPixel)*frontHeightPixel+frontHeadLine;
         width = frontBlack[frontBreastOffset];
         width = width*(height/frontHeightPixel);
+        System.out.println("breastwidth"+width);
         return width;
     }
 
@@ -168,6 +170,10 @@ public class BodyData {
     public void setFrontJawOffset(Bitmap img){
         for(int i=frontHeadLine+frontHeightPixel/5;i>frontHeadLine;i--){
             for(int j=1;j<11;j++){
+                if(j>i){
+                    frontJawOffset = frontHeadLine+frontHeightPixel/5;
+                    return;
+                }
                 if(frontBlack[i-j]<frontBlack[i]){
                     break;
                 }
@@ -183,6 +189,10 @@ public class BodyData {
     public void setSideJawOffset(Bitmap img){
         for(int i=sideHeadLine+sideHeightPixel/5;i>sideHeadLine;i--){
             for(int j=1;j<11;j++){
+                if(j>i){
+                    frontJawOffset = frontHeadLine+frontHeightPixel/5;
+                    return;
+                }
                 if(sideBlack[i-j]<sideBlack[i]){
                     break;
                 }

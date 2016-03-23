@@ -71,6 +71,8 @@ public class Login extends Activity {
         relativeLayout.setVisibility(View.INVISIBLE);
         //progressBar.setVisibility(View.INVISIBLE);
 
+        String cacheName = database.getCacheName();
+        username.setText(cacheName);
 
         mHandler = new Handler(){
             @Override
@@ -93,6 +95,11 @@ public class Login extends Activity {
                         if(autoLogin.isChecked()){
                             auto=1;
                         }
+                        if (rememberPass.isChecked()) {
+                            database.addCache(name, pass, 1,auto);  // 修改缓存的用户名
+                        } else {
+                            database.addCache(name, pass, 0,auto);
+                        }
 
                         Intent intentToMain = new Intent();
                         intentToMain.setClass(Login.this, MainActivity.class);
@@ -110,6 +117,12 @@ public class Login extends Activity {
                 }
             }
         };
+
+        if(1 == database.getCacheFlag()){
+            String pass = database.getCachePassword();
+            password.setText(pass);
+            rememberPass.setChecked(true);
+        }
 
         password.setImeOptions(EditorInfo.IME_ACTION_DONE);
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -190,6 +203,12 @@ public class Login extends Activity {
                 }
             }
         });
+
+        if(1 == database.getAuto()){  // 自动登录
+            autoLogin.setChecked(true);
+            login.performClick();
+        }
+
     }
 
     @Override

@@ -24,6 +24,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS " +
                 "USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, height FLOAT, " +
                 "breast FLOAT, waist FLOAT, hipshot FLOAT, sex TEXT);");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS CACHE (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userName TEXT, password TEXT, flag INTEGER, auto INTEGER);");  // 登录信息缓存表
     }
 
     @Override

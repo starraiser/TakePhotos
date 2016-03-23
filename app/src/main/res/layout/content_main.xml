@@ -17,4 +17,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_below="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你的信息："/>
+    <TextView
+        android:id="@+id/height"
+        android:layout_below="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="身高："/>
+    <TextView
+        android:id="@+id/breast"
+        android:layout_below="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="胸围："/>
+    <TextView
+        android:id="@+id/waist"
+        android:layout_below="@+id/breast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="腰围："/>
+    <TextView
+        android:id="@+id/hipshot"
+        android:layout_below="@+id/waist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="臀围："/>
 </RelativeLayout>

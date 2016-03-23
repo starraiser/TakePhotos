@@ -29,21 +29,20 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.administrator.takephotos.Adapter.BVAdapter;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
 import com.example.administrator.takephotos.Process.BodyData;
 import com.example.administrator.takephotos.Process.OtsuBinaryFilter;
 import com.tandong.sa.bv.BottomView;
-import com.tandong.sa.zUImageLoader.core.ImageLoader;
-import com.tandong.sa.zUImageLoader.core.ImageLoaderConfiguration;
 
 import uk.co.senab.photoview.PhotoView;
 
@@ -364,6 +363,7 @@ public class Pager extends Activity {
                     return;
                 }
                 final EditText et = new EditText(Pager.this);
+                et.setInputType(InputType.TYPE_CLASS_NUMBER);
                 new AlertDialog.Builder(Pager.this).setTitle("输入身高").setView(et)
                         .setPositiveButton("confirm", new DialogInterface.OnClickListener() {
                             @Override
@@ -396,6 +396,7 @@ public class Pager extends Activity {
                                     Intent intent = new Intent(Pager.this,showinfo.class);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
+                                    finish();
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -517,11 +518,14 @@ public class Pager extends Activity {
                 bitmap1=BitmapFactory.decodeStream(file,null,opts);
                 //设置ImageView背景
                 //img1.setBackgroundColor(Color.BLACK);
+                Bitmap bitmap = null;
+                OtsuBinaryFilter filter = new OtsuBinaryFilter();
+                bitmap = filter.filter(bitmap1);
                 img1.setBackgroundColor(Color.BLACK);
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
-                img1.setImageBitmap(bitmap1);
+                img1.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 e.printStackTrace();
             }catch (IOException e){
@@ -567,13 +571,16 @@ public class Pager extends Activity {
                 opts.inInputShareable=true;
                 //解码位图
                 bitmap2=BitmapFactory.decodeStream(file,null,opts);
+                Bitmap bitmap = null;
+                OtsuBinaryFilter filter = new OtsuBinaryFilter();
+                bitmap = filter.filter(bitmap2);
                 //设置ImageView背景
                 //img1.setBackgroundColor(Color.BLACK);
                 img2.setBackgroundColor(Color.BLACK);
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
-                img2.setImageBitmap(bitmap2);
+                img2.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 e.printStackTrace();
             }catch (IOException e){

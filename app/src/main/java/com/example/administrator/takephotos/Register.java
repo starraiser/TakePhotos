@@ -54,6 +54,7 @@ public class Register extends Activity {
                         } else {
                             User user = new User(tempName, tempPassword);
 
+                            database.addCache(tempName,tempPassword,0,0);  // 修改缓存的用户名
                             database.addUser(user);  // 向数据库添加新用户
 
                             SharedPreferences mySharedPreferences =

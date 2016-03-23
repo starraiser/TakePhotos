@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Adapter;
 
 /**
  * Created by Administrator on 2016/1/7.
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.administrator.takephotos.R;
 
 import java.util.ArrayList;
 
