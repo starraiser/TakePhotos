@@ -8,10 +8,12 @@ public class User {
     private int userId;
     private String userName;
     private String password;
+    private String sex;
 
-    public User(String userName, String password) {
+    public User(String userName, String password,String sex) {
         this.userName = userName;
         this.password = password;
+        this.sex = sex;
     }
 
     public void setUserName(String name){
@@ -28,5 +30,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSex() {
+        return sex;
     }
 }

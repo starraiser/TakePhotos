@@ -24,8 +24,9 @@ public class Info {
         this._sex = sex;
     }
 
-    public Info(double height){
+    public Info(double height,String sex){
         this._height = height;
+        this._sex = sex;
     }
 
     public int get_id() {

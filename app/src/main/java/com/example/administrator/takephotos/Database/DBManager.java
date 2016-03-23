@@ -26,14 +26,15 @@ public class DBManager {
     public void addUser(User user){  // 添加用户
         String name = user.getUserName();
         String password = user.getPassword();
-        db.execSQL("insert into USER values(null,?,?)",
-                new Object[]{name, password});
+        String sex = user.getSex();
+        db.execSQL("insert into USER values(null,?,?,?)",
+                new Object[]{name, password,sex});
     }
 
     public boolean checkUser(String name, String password){  // 检查用户是否存在or密码是否正确
         String userPassword="";
         ContentValues cv = new ContentValues();
-        Cursor cursor = db.rawQuery("select * from USER where userName=?",new String[]{name});
+        Cursor cursor = db.rawQuery("select * from USER where userName=?", new String[]{name});
 
         if(cursor.getCount() == 0){  // 判断是否存在该用户
             return false;
@@ -68,6 +69,16 @@ public class DBManager {
             name = cursor.getString(cursor.getColumnIndex("userName"));
         }
         return name;
+    }
+
+    public String getSexById(int id){  // 通过用户名查找用户id
+        String sex="";
+        ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("select sex from USER where _id=?",new String[]{String.valueOf(id)});
+        while(cursor.moveToNext()){
+            sex = cursor.getString(cursor.getColumnIndex("sex"));
+        }
+        return sex;
     }
 
     public void addUserInfo(Info info){

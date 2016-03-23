@@ -8,6 +8,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,7 @@ public class Register extends Activity {
     private EditText password;
     private EditText passwordAgain;
     private TextView confirm;
-
+    private RadioGroup radioGroup;
     private DBManager database;
 
     @Override
@@ -37,6 +39,7 @@ public class Register extends Activity {
         password = (EditText)findViewById(R.id.passwordReg);
         passwordAgain = (EditText)findViewById(R.id.passwordRegAgain);
         confirm = (TextView)findViewById(R.id.comfirmReg);
+        radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +55,19 @@ public class Register extends Activity {
                                     "用户已存在", Toast.LENGTH_SHORT);
                             toast.show();
                         } else {
-                            User user = new User(tempName, tempPassword);
+                            String sex="";
+                            RadioButton buttonMan = (RadioButton)radioGroup.getChildAt(0);
+                            RadioButton buttonWoman = (RadioButton)radioGroup.getChildAt(1);
+                            if(buttonMan.isChecked()){
+                                sex="man";
+                            }
+                            if(buttonWoman.isChecked()){
+                                sex="girl";
+                            }
+                            if(sex==""){
+                                return;
+                            }
+                            User user = new User(tempName, tempPassword,sex);
 
                             database.addCache(tempName,tempPassword,0,0);  // 修改缓存的用户名
                             database.addUser(user);  // 向数据库添加新用户

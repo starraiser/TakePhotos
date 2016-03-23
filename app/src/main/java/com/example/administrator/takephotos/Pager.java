@@ -386,7 +386,7 @@ public class Pager extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     String height = et.getText().toString();
-                                    Info info = new Info(Double.parseDouble(height));
+                                    Info info = new Info(Double.parseDouble(height),database.getSexById(userId));
 //                                    BitmapDrawable frontDrawable = (BitmapDrawable)img1.getDrawable();
 //                                    Bitmap front = frontDrawable.getBitmap();
 //                                    BitmapDrawable sideDrawable = (BitmapDrawable)img2.getDrawable();
@@ -399,7 +399,6 @@ public class Pager extends Activity {
                                     info.set_breast(data.getBreastWidth(), data.getBreastThickness());
                                     info.set_waist(data.getWaistWidth(), data.getWaistThickness());
                                     info.set_hipshot(data.getHipshotWidth(), data.getHipshotThickness());
-                                    info.set_sex("man");
                                     info.set_userId(userId);
 
                                     Bundle bundle = new Bundle();

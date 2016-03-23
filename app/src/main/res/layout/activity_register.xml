@@ -58,6 +58,22 @@
                 android:paddingLeft="20dp"
                 android:hint="请再次输入密码"/>
         </LinearLayout>
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:text="男"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:layout_marginLeft="30dp"
+                android:text="女"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
         <TextView
             android:layout_marginBottom="16dp"
             android:padding="0dp"
