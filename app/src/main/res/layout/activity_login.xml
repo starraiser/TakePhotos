@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_gray"
+
+    tools:context=".Activity.Login">
+
+    <LinearLayout
+        android:id="@+id/loginLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@+id/checkboxLine"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5dp">
+
+        <EditText
+            android:id="@+id/username"
+            android:background="#FFFFFF"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:hint="请输入用户名"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white_gray"/>
+        <EditText
+            android:id="@+id/password"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:background="#FFFFFF"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:hint="请输入密码"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/checkboxLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/login"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+        <CheckBox
+            android:id="@+id/rememberPass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="记住密码"
+            style="@style/custom_checkbox"
+            android:checked="false"/>
+
+        <CheckBox
+            android:id="@+id/autoLogin"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="自动登录"
+            style="@style/custom_checkbox"
+            android:checked="false"/>
+    </LinearLayout>
+    <TextView
+        android:padding="0dp"
+        android:id="@+id/login"
+        android:layout_above="@+id/register"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:paddingRight="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/radius_text"/>
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
+        android:padding="0dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/radius_text"
+        android:textSize="18sp"/>
+
+    <RelativeLayout
+        android:id="@+id/loginRelative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#40000000">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="?android:attr/progressBarStyleLarge"/>
+    </RelativeLayout>
+
+</RelativeLayout>

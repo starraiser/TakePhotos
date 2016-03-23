@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
 import com.example.administrator.takephotos.Process.BodyData;
 import com.example.administrator.takephotos.Process.OtsuBinaryFilter;
@@ -62,6 +64,7 @@ public class Pager extends Activity {
     private List<View> viewList;// view数组
     private ViewPager viewPager; // 对应的viewPager
     private int page;
+    private int userId;
 
     //显示图片的ImageView
     private PhotoView img1;
@@ -83,10 +86,13 @@ public class Pager extends Activity {
 
     private BottomView bottomView;
 
+    private DBManager database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager);
+        database = new DBManager(this);
 
         img1 = (PhotoView)findViewById(R.id.img1);
         img2 = (PhotoView)findViewById(R.id.img2);
@@ -94,6 +100,9 @@ public class Pager extends Activity {
         final FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
         //final FloatingActionButton cancelFab = (FloatingActionButton) findViewById(R.id.cancelFab);
         final FloatingActionButton uploadFab = (FloatingActionButton) findViewById(R.id.uploadFab);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("info", Activity.MODE_PRIVATE);  // 获取当前用户id
+        userId = sharedPreferences.getInt("userId",-1);
 
 /*
         cancelFab.setOnClickListener(new View.OnClickListener() {
@@ -372,15 +381,17 @@ public class Pager extends Activity {
                                     info.set_waist(data.getWaistWidth(), data.getWaistThickness());
                                     info.set_hipshot(data.getHipshotWidth(), data.getHipshotThickness());
                                     info.set_sex("man");
-                                    info.set_name("star");
+                                    info.set_userId(userId);
 
                                     Bundle bundle = new Bundle();
                                     bundle.putDouble("height", info.get_height());
                                     bundle.putDouble("waist", info.get_waist());
                                     bundle.putDouble("breast", info.get_breast());
                                     bundle.putDouble("hipshot", info.get_hipshot());
-                                    bundle.putString("name",info.get_name());
-                                    bundle.putString("sex",info.get_sex());
+                                    bundle.putString("sex", info.get_sex());
+                                    bundle.putInt("userId",userId);
+
+                                    database.addUserInfo(info);
 
                                     Intent intent = new Intent(Pager.this,showinfo.class);
                                     intent.putExtras(bundle);

@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -37,7 +37,9 @@
         <activity
             android:name=".Pager"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".showinfo"></activity>
+        <activity android:name=".showinfo" />
+        <activity android:name=".MainActivity"  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>

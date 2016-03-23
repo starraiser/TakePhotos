@@ -19,7 +19,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                "USER (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, height FLOAT, " +
+                "USER (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, password TEXT);");  // 用户表
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "USERINFO (_id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, height FLOAT, " +
                 "breast FLOAT, waist FLOAT, hipshot FLOAT, sex TEXT);");
     }
 

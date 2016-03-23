@@ -55,15 +55,15 @@ public class BodyData {
         }
 
         for(int i = 0;i<front.getHeight();i++){  // 正面每行黑点数
-            for(int j = 0;j<front.getWidth();i++){
-                if(Color.red(front.getPixel(i,j))==255)
+            for(int j = 0;j<front.getWidth();j++){
+                if(Color.red(front.getPixel(j,i))==255)
                 frontBlack[i]++;
             }
         }
 
         for(int i = 0;i<side.getHeight();i++){  // 侧面每行黑点数
-            for(int j = 0;j<side.getWidth();i++){
-                if(Color.red(side.getPixel(i,j))==255)
+            for(int j = 0;j<side.getWidth();j++){
+                if(Color.red(side.getPixel(j,i))==255)
                     sideBlack[i]++;
             }
         }
@@ -79,6 +79,9 @@ public class BodyData {
         int maxBlack = sideBlack[sideBreastOffset];
         int maxPosition = sideBreastOffset;
         for(int i =sideBreastOffset-20;i<sideBreastOffset+20;i++){
+            if(i<0){
+                i=0;
+            }
             if(sideBlack[i]>maxBlack){
                 maxBlack = sideBlack[i];
                 maxPosition = i;
@@ -111,6 +114,9 @@ public class BodyData {
         int minBlack = frontBlack[frontBreastOffset];
         int minPosition = frontBreastOffset;
         for(int i =frontBreastOffset-20;i<frontBreastOffset+20;i++){
+            if(i<0){
+                i=0;
+            }
             if(frontBlack[i]<minBlack){
                 minBlack = frontBlack[i];
                 minPosition = i;
@@ -135,6 +141,9 @@ public class BodyData {
         int maxBlack = frontBlack[frontHipshotOffset];
         int maxPosition = frontHipshotOffset;
         for(int i =frontHipshotOffset-20;i<frontHipshotOffset+20;i++){
+            if(i<0){
+                i=0;
+            }
             if(frontBlack[i]>maxBlack){
                 maxBlack = frontBlack[i];
                 maxPosition = i;

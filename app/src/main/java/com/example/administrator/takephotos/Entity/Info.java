@@ -5,7 +5,7 @@ package com.example.administrator.takephotos.Entity;
  */
 public class Info {
     private int _id;
-    private String _name;
+    private int _userId;
     private double _height;
     private double _breast;
     private double _waist;
@@ -14,9 +14,9 @@ public class Info {
 
     public Info(){}
 
-    public Info(int id,String name,double height,double breast,double waist,double hipshot,String sex){
+    public Info(int id,int userId,double height,double breast,double waist,double hipshot,String sex){
         this._id = id;
-        this._name = name;
+        this._userId = userId;
         this._height = height;
         this._breast = breast;
         this._waist = waist;
@@ -32,8 +32,8 @@ public class Info {
         return _id;
     }
 
-    public String get_name() {
-        return _name;
+    public int get_userId() {
+        return this._userId;
     }
 
     public double get_breast() {
@@ -60,8 +60,8 @@ public class Info {
         this._sex = _sex;
     }
 
-    public void set_name(String _name) {
-        this._name = _name;
+    public void set_userId(int userId) {
+        this._userId = userId;
     }
 
     public void set_breast(double _breast) {

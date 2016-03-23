@@ -1,6 +1,8 @@
 package com.example.administrator.takephotos;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -10,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.administrator.takephotos.Database.DBManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int userId;
+    private TextView welcome;
     DBManager database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        welcome = (TextView)findViewById(R.id.welcome);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("info", Activity.MODE_PRIVATE);  // 获取当前用户id
+        userId = sharedPreferences.getInt("userId",-1);
+
+        welcome.setText("欢迎," + database.getNameById(userId));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
