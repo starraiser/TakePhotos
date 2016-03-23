@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.administrator.takephotos.Adapter.BVAdapter;
 import com.example.administrator.takephotos.Database.DBManager;
@@ -52,6 +53,9 @@ public class Pager extends Activity {
     private final int UPLOAD = 3;
     private final int SELECT_1 = 4;
     private final int SELECT_2 = 5;
+
+    private boolean hasPic1 = false;
+    private boolean hasPic2 = false;
 
     //private Animation animationTranslate, animationRotate, animationScale;
     //private static int width, height;
@@ -358,23 +362,38 @@ public class Pager extends Activity {
             public void onClick(View v) {
                 img1 = (PhotoView) findViewById(R.id.img1);
                 img2 = (PhotoView) findViewById(R.id.img2);
-                if (img1.getDrawable() == null) {
-                    System.out.println("no pic!!!!!!!");
+                if (!hasPic1 && !hasPic2) {  // 判断是否有照片
+                    Toast toast = Toast.makeText(Pager.this,"未选择照片",Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
-                final EditText et = new EditText(Pager.this);
+                if (!hasPic2) {
+                    Toast toast = Toast.makeText(Pager.this,"未选择侧面照",Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                if (!hasPic1) {
+                    Toast toast = Toast.makeText(Pager.this,"未选择正面照",Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                final EditText et = new EditText(Pager.this);  // 弹出身高输入框
                 et.setInputType(InputType.TYPE_CLASS_NUMBER);
-                new AlertDialog.Builder(Pager.this).setTitle("输入身高").setView(et)
+                new AlertDialog.Builder(Pager.this).setTitle("输入身高(cm)").setView(et)
                         .setPositiveButton("confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     String height = et.getText().toString();
                                     Info info = new Info(Double.parseDouble(height));
-                                    BitmapDrawable frontDrawable = (BitmapDrawable)img1.getDrawable();
-                                    Bitmap front = frontDrawable.getBitmap();
-                                    BitmapDrawable sideDrawable = (BitmapDrawable)img2.getDrawable();
-                                    Bitmap side = sideDrawable.getBitmap();
+//                                    BitmapDrawable frontDrawable = (BitmapDrawable)img1.getDrawable();
+//                                    Bitmap front = frontDrawable.getBitmap();
+//                                    BitmapDrawable sideDrawable = (BitmapDrawable)img2.getDrawable();
+//                                    Bitmap side = sideDrawable.getBitmap();
+                                    OtsuBinaryFilter filter = new OtsuBinaryFilter();
+                                    Bitmap front = filter.filter(bitmap1);
+                                    Bitmap side = filter.filter(bitmap2);
                                     BodyData data = new BodyData(Float.parseFloat(height),front,side);
 
                                     info.set_breast(data.getBreastWidth(), data.getBreastThickness());
@@ -440,8 +459,9 @@ public class Pager extends Activity {
                 //img1.setImageBitmap(bitmap1);
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
                 Bitmap bit =null;
-                bit = filter.filter(bitmap1);
+                bit = filter.edge(bitmap1);
 
+                hasPic1=true;
                 img1.setImageBitmap(bit);
                 
             }catch (Exception e){
@@ -472,7 +492,8 @@ public class Pager extends Activity {
                 //显示位图
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
                 Bitmap bit =null;
-                bit = filter.filter(bitmap2);
+                bit = filter.edge(bitmap2);
+                hasPic2=true;
                 img2.setImageBitmap(bit);
             }catch (Exception e){
                 e.printStackTrace();
@@ -520,11 +541,12 @@ public class Pager extends Activity {
                 //img1.setBackgroundColor(Color.BLACK);
                 Bitmap bitmap = null;
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
-                bitmap = filter.filter(bitmap1);
+                bitmap = filter.edge(bitmap1);
                 img1.setBackgroundColor(Color.BLACK);
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
+                hasPic1=true;
                 img1.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 e.printStackTrace();
@@ -573,13 +595,14 @@ public class Pager extends Activity {
                 bitmap2=BitmapFactory.decodeStream(file,null,opts);
                 Bitmap bitmap = null;
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
-                bitmap = filter.filter(bitmap2);
+                bitmap = filter.edge(bitmap2);
                 //设置ImageView背景
                 //img1.setBackgroundColor(Color.BLACK);
                 img2.setBackgroundColor(Color.BLACK);
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
+                hasPic1=true;
                 img2.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 e.printStackTrace();
