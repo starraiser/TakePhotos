@@ -38,8 +38,11 @@
             android:name=".Pager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".showinfo" />
-        <activity android:name=".MainActivity"  android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Register"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Register" />
+        <activity android:name=".InputData"></activity>
     </application>
 
 </manifest>

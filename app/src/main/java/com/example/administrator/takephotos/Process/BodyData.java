@@ -205,7 +205,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = height-1;i>0;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(i,j))==255){
+                if (Color.red(img.getPixel(j,i))==255){
                     return i;
                 }
             }
@@ -218,7 +218,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = height-1;i>0;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(i,j))==255){
+                if (Color.red(img.getPixel(j,i))==255){
                     return i;
                 }
             }
@@ -232,7 +232,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = 0;i<height;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(i,j))==255){
+                if (Color.red(img.getPixel(j,i))==255){
                     frontHeadLine = i;
                     return i;
                 }
@@ -247,7 +247,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = 0;i<height;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(i,j))==255){
+                if (Color.red(img.getPixel(j,i))==255){
                     sideHeadLine = i;
                     return i;
                 }

@@ -71,7 +71,7 @@ public class DBManager {
         return name;
     }
 
-    public String getSexById(int id){  // 通过用户名查找用户id
+    public String getSexById(int id){  // 通过用户名查找用户性别
         String sex="";
         ContentValues cv = new ContentValues();
         Cursor cursor = db.rawQuery("select sex from USER where _id=?",new String[]{String.valueOf(id)});
@@ -88,8 +88,14 @@ public class DBManager {
         double waist = info.get_waist();
         double hipshot = info.get_hipshot();
         String sex = info.get_sex();
-        db.execSQL("insert into USERINFO values(null,?,?,?,?,?,?)",
-                new Object[]{userId,height,breast,waist,hipshot,sex});
+        Cursor cursor = db.rawQuery("select * from USERINFO where userId = ?", new String[]{String.valueOf(userId)});
+        if(cursor.getCount() == 0){
+            db.execSQL("insert into USERINFO values(null,?,?,?,?,?,?)",
+                    new Object[]{userId,height,breast,waist,hipshot,sex});
+        } else {
+            db.execSQL("update USERINFO set height=? ,breast=?,waist=?,hipshot=?,sex=? where userId=?",
+                    new String[]{String.valueOf(height),String.valueOf(breast),String.valueOf(waist),String.valueOf(hipshot),sex,String.valueOf(userId)});
+        }
     }
 
     public Info getInfoById(int userId){

@@ -386,6 +386,11 @@ public class Pager extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     String height = et.getText().toString();
+                                    if(Double.parseDouble(height)>300||Double.parseDouble(height)<50){
+                                        Toast toast = Toast.makeText(Pager.this,"请输入正确的身高！",Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        return;
+                                    }
                                     Info info = new Info(Double.parseDouble(height),database.getSexById(userId));
 //                                    BitmapDrawable frontDrawable = (BitmapDrawable)img1.getDrawable();
 //                                    Bitmap front = frontDrawable.getBitmap();

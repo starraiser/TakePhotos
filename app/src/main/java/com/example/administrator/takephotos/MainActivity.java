@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         welcome = (TextView)findViewById(R.id.welcome);
         height = (TextView)findViewById(R.id.height);
         breast = (TextView)findViewById(R.id.breast);
@@ -98,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, Pager.class);
+                startActivity(intent);
+            }
+        });
+
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,InputData.class);
                 startActivity(intent);
             }
         });
