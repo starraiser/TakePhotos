@@ -1,11 +1,8 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.R;
 import com.example.administrator.takephotos.Database.DBManager;
-import com.tandong.sa.avatars.AvatarDrawableFactory;
 
 
 public class Login extends Activity {

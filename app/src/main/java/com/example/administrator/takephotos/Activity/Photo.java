@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import java.io.File;
 
 import android.widget.RelativeLayout;
+
+import com.example.administrator.takephotos.R;
 
 public class Photo extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

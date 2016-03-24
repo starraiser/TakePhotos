@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
+import com.example.administrator.takephotos.R;
 
 public class InputData extends Activity {
 

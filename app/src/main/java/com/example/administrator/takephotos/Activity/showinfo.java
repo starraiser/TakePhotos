@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
+import com.example.administrator.takephotos.R;
 
 public class showinfo extends Activity {
 
@@ -46,9 +47,9 @@ public class showinfo extends Activity {
         Waist = (TextView)findViewById(R.id.waist);
         Hipshot = (TextView)findViewById(R.id.hipshot);
 
-        Height.setText(String.valueOf(height));
-        Breast.setText(String.valueOf(breast));
-        Waist.setText(String.valueOf(waist));
-        Hipshot.setText(String.valueOf(hipshot));
+        Height.setText("你的身高："+String.valueOf(height));
+        Breast.setText("你的胸围："+String.valueOf(breast));
+        Waist.setText("你的腰围："+String.valueOf(waist));
+        Hipshot.setText("你的臀围："+String.valueOf(hipshot));
     }
 }

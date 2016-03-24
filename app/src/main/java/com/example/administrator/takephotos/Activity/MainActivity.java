@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,21 +6,14 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -28,7 +21,7 @@ import android.widget.TextView;
 import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
-import com.tandong.sa.avatars.AvatarDrawableFactory;
+import com.example.administrator.takephotos.R;
 import com.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;

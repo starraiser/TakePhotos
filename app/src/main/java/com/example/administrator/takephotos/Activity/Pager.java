@@ -1,4 +1,4 @@
-package com.example.administrator.takephotos;
+package com.example.administrator.takephotos.Activity;
 
 /**
  * @author  star
@@ -22,7 +22,6 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -43,6 +42,7 @@ import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
 import com.example.administrator.takephotos.Process.BodyData;
 import com.example.administrator.takephotos.Process.OtsuBinaryFilter;
+import com.example.administrator.takephotos.R;
 import com.tandong.sa.bv.BottomView;
 
 import uk.co.senab.photoview.PhotoView;
