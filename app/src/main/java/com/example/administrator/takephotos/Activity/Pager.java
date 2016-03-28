@@ -41,6 +41,7 @@ import com.example.administrator.takephotos.Adapter.BVAdapter;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
 import com.example.administrator.takephotos.Process.BodyData;
+import com.example.administrator.takephotos.Process.ImageProcess;
 import com.example.administrator.takephotos.Process.OtsuBinaryFilter;
 import com.example.administrator.takephotos.R;
 import com.tandong.sa.bv.BottomView;
@@ -464,6 +465,8 @@ public class Pager extends Activity {
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
                 Bitmap bit =null;
                 bit = filter.edge(bitmap1);
+                ImageProcess process = new ImageProcess();
+                bit = process.toGrey(bitmap1);
 
                 hasPic1=true;
                 img1.setImageBitmap(bit);
@@ -497,6 +500,8 @@ public class Pager extends Activity {
                 OtsuBinaryFilter filter = new OtsuBinaryFilter();
                 Bitmap bit =null;
                 bit = filter.edge(bitmap2);
+                ImageProcess process = new ImageProcess();
+                bit = process.toGrey(bitmap2);
                 hasPic2=true;
                 img2.setImageBitmap(bit);
             }catch (Exception e){
@@ -550,6 +555,8 @@ public class Pager extends Activity {
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
+                ImageProcess process = new ImageProcess();
+                bitmap = process.toGrey(bitmap1);
                 hasPic1=true;
                 img1.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
@@ -606,6 +613,8 @@ public class Pager extends Activity {
                 //显示位图
                 //img1.setImageBitmap(bitmap1);
 
+                ImageProcess process = new ImageProcess();
+                bitmap = process.toGrey(bitmap1);
                 hasPic1=true;
                 img2.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
