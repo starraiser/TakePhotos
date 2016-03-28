@@ -387,12 +387,12 @@ public class Pager extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     String height = et.getText().toString();
-                                    if(Double.parseDouble(height)>300||Double.parseDouble(height)<50){
-                                        Toast toast = Toast.makeText(Pager.this,"请输入正确的身高！",Toast.LENGTH_SHORT);
+                                    if (Double.parseDouble(height) > 300 || Double.parseDouble(height) < 50) {
+                                        Toast toast = Toast.makeText(Pager.this, "请输入正确的身高！", Toast.LENGTH_SHORT);
                                         toast.show();
                                         return;
                                     }
-                                    Info info = new Info(Double.parseDouble(height),database.getSexById(userId));
+                                    Info info = new Info(Double.parseDouble(height), database.getSexById(userId));
 //                                    BitmapDrawable frontDrawable = (BitmapDrawable)img1.getDrawable();
 //                                    Bitmap front = frontDrawable.getBitmap();
 //                                    BitmapDrawable sideDrawable = (BitmapDrawable)img2.getDrawable();
@@ -400,11 +400,40 @@ public class Pager extends Activity {
                                     OtsuBinaryFilter filter = new OtsuBinaryFilter();
                                     Bitmap front = filter.filter(bitmap1);
                                     Bitmap side = filter.filter(bitmap2);
-                                    BodyData data = new BodyData(Float.parseFloat(height),front,side);
-
-                                    info.set_breast(data.getBreastWidth(), data.getBreastThickness());
-                                    info.set_waist(data.getWaistWidth(), data.getWaistThickness());
-                                    info.set_hipshot(data.getHipshotWidth(), data.getHipshotThickness());
+                                    BodyData data = new BodyData(Float.parseFloat(height), front, side);
+                                    Bitmap bitmap = Bitmap.createBitmap(side.getWidth(), side.getHeight(), side.getConfig());
+                                    for (int i = 0; i < side.getWidth(); i++) {
+                                        for (int j = 0; j < side.getHeight(); j++) {
+                                            if (j == data.sideWaistOffset) {
+                                                bitmap.setPixel(i, j, Color.RED);
+                                            } else if (j == data.sideHipshotOffset) {
+                                                bitmap.setPixel(i, j, Color.BLUE);
+                                            } else if (j == data.sideBreastOffset) {
+                                                bitmap.setPixel(i, j, Color.GREEN);
+                                            } else {
+                                                bitmap.setPixel(i, j, side.getPixel(i, j));
+                                            }
+                                        }
+                                    }
+                                    img2.setImageBitmap(bitmap);
+                                    Bitmap bitmap2 = Bitmap.createBitmap(front.getWidth(), front.getHeight(), front.getConfig());
+                                    for (int i = 0; i < front.getWidth(); i++) {
+                                        for (int j = 0; j < front.getHeight(); j++) {
+                                            if (j == data.frontBreastOffset) {
+                                                bitmap2.setPixel(i, j, Color.RED);
+                                            } else if (j == data.frontHipshotOffset) {
+                                                bitmap2.setPixel(i, j, Color.BLUE);
+                                            } else if (j == data.frontWaistOffset) {
+                                                bitmap2.setPixel(i, j, Color.GREEN);
+                                            } else {
+                                                bitmap2.setPixel(i, j, front.getPixel(i, j));
+                                            }
+                                        }
+                                    }
+                                    img1.setImageBitmap(bitmap2);
+                                    info.set_breast(data.breastWidth, data.breastThick);
+                                    info.set_waist(data.waistWidth, data.waistThick);
+                                    info.set_hipshot(data.hipshotWidth, data.hipshotThick);
                                     info.set_userId(userId);
 
                                     Bundle bundle = new Bundle();
@@ -417,7 +446,7 @@ public class Pager extends Activity {
 
                                     database.addUserInfo(info);
 
-                                    Intent intent = new Intent(Pager.this,showinfo.class);
+                                    Intent intent = new Intent(Pager.this, showinfo.class);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                     finish();
@@ -452,7 +481,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=10;
+                opts.inSampleSize=8;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
@@ -489,7 +518,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=10;
+                opts.inSampleSize=8;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
@@ -541,7 +570,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=10;
+                opts.inSampleSize=2;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
@@ -556,7 +585,7 @@ public class Pager extends Activity {
                 //img1.setImageBitmap(bitmap1);
 
                 ImageProcess process = new ImageProcess();
-                bitmap = process.toGrey(bitmap1);
+                bitmap = process.edge(bitmap1);
                 hasPic1=true;
                 img1.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
@@ -599,7 +628,7 @@ public class Pager extends Activity {
                 //设置图片可以被回收
                 opts.inPurgeable=true;
                 //设置位图缩放比例
-                opts.inSampleSize=10;
+                opts.inSampleSize=2;
                 //设置解码位图的尺寸信息
                 opts.inInputShareable=true;
                 //解码位图
@@ -614,8 +643,8 @@ public class Pager extends Activity {
                 //img1.setImageBitmap(bitmap1);
 
                 ImageProcess process = new ImageProcess();
-                bitmap = process.toGrey(bitmap1);
-                hasPic1=true;
+                bitmap = process.filter(bitmap2);
+                hasPic2=true;
                 img2.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 e.printStackTrace();

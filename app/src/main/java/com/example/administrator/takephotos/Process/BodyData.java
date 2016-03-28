@@ -9,22 +9,28 @@ import android.graphics.Color;
 public class BodyData {
 
     private float height;  // 身高
-    private int frontHeightPixel;
-    private int sideHeightPixel;
-    private int frontHeadHeight;
-    private int sideHeadHeight;
+    public int frontHeightPixel;
+    public int sideHeightPixel;
+    public int frontHeadHeight;
+    public int sideHeadHeight;
     private Bitmap frontImg;  // 正面照
     private Bitmap sideImg;  // 侧面照
-    private int frontBreastOffset;  // 胸部偏移量
-    private int frontWaistOffset;  // 腰部偏移量
-    private int frontHipshotOffset;  // 臀部偏移量
-    private int frontJawOffset; // 下巴偏移量
-    private int sideBreastOffset;  // 胸部偏移量
-    private int sideWaistOffset;  // 腰部偏移量
-    private int sideHipshotOffset;  // 臀部偏移量
-    private int sideJawOffset;
-    private int frontHeadLine;  // 正面头顶位置
-    private int sideHeadLine;  // 侧面头顶位置
+    public int frontBreastOffset;  // 胸部偏移量
+    public int frontWaistOffset;  // 腰部偏移量
+    public int frontHipshotOffset;  // 臀部偏移量
+    public int frontJawOffset; // 下巴偏移量
+    public int sideBreastOffset;  // 胸部偏移量
+    public int sideWaistOffset;  // 腰部偏移量
+    public int sideHipshotOffset;  // 臀部偏移量
+    public float breastWidth;
+    public float breastThick;
+    public float waistWidth;
+    public float waistThick;
+    public float hipshotWidth;
+    public float hipshotThick;
+    public int sideJawOffset;
+    public int frontHeadLine;  // 正面头顶位置
+    public int sideHeadLine;  // 侧面头顶位置
     private int[] frontBlack;
     private int[] sideBlack;
 
@@ -56,14 +62,14 @@ public class BodyData {
 
         for(int i = 0;i<front.getHeight();i++){  // 正面每行黑点数
             for(int j = 0;j<front.getWidth();j++){
-                if(Color.red(front.getPixel(j,i))==255)
+                if(Color.red(front.getPixel(j,i))==0)
                 frontBlack[i]++;
             }
         }
 
         for(int i = 0;i<side.getHeight();i++){  // 侧面每行黑点数
             for(int j = 0;j<side.getWidth();j++){
-                if(Color.red(side.getPixel(j,i))==255)
+                if(Color.red(side.getPixel(j,i))==0)
                     sideBlack[i]++;
             }
         }
@@ -71,6 +77,12 @@ public class BodyData {
         setSideJawOffset(side);
         frontHeadHeight = frontJawOffset - frontHeadLine + 1;
         sideHeadHeight = sideJawOffset - sideHeadLine + 1;
+        hipshotWidth = getHipshotWidth();
+        hipshotThick = getHipshotThickness();
+        breastThick = getBreastThickness();
+        breastWidth = getBreastWidth();
+        waistWidth = getWaistWidth();
+        waistThick = getWaistThickness();
     }
 
     public float getBreastThickness(){
@@ -88,6 +100,10 @@ public class BodyData {
             }
         }
 
+        System.out.println("sideheightpixel "+sideHeightPixel);
+        System.out.println("height "+height);
+        System.out.println("max "+maxBlack);
+        System.out.println("result "+(maxBlack*(height/sideHeightPixel)));
         thickness = maxBlack*(height/sideHeightPixel);
         sideBreastOffset = maxPosition;
         return thickness;
@@ -95,8 +111,8 @@ public class BodyData {
 
     public float getBreastWidth(){
         float width = 0;
-        getBreastThickness();
-        frontBreastOffset = ((sideBreastOffset-sideHeadLine)/sideHeightPixel)*frontHeightPixel+frontHeadLine;
+//        getBreastThickness();
+        frontBreastOffset = (int)(((float)(sideBreastOffset-sideHeadLine)/(float)sideHeightPixel)*frontHeightPixel)+frontHeadLine;
         width = frontBlack[frontBreastOffset];
         width = width*(height/frontHeightPixel);
         return width;
@@ -104,8 +120,8 @@ public class BodyData {
 
     public float getWaistThickness(){
         float thickness = 0;
-        getWaistWidth();
-        sideWaistOffset = ((frontWaistOffset-frontHeadLine)/frontHeightPixel)*sideHeightPixel+sideHeadLine;
+//        getWaistWidth();
+        sideWaistOffset = (int)(((float)(frontWaistOffset-frontHeadLine)/(float)frontHeightPixel)*sideHeightPixel)+sideHeadLine;
         thickness = sideBlack[sideWaistOffset];
         thickness = thickness*(height/sideHeightPixel);
 
@@ -114,10 +130,10 @@ public class BodyData {
 
     public float getWaistWidth(){
         float width = 0;
-        frontBreastOffset = frontHeadLine + frontHeadHeight*(3/8);
+        frontWaistOffset = (int)((float)frontHeadLine + (float)frontHeadHeight*(8.0/3.0));
         int minBlack = frontBlack[frontBreastOffset];
-        int minPosition = frontBreastOffset;
-        for(int i =frontBreastOffset-20;i<frontBreastOffset+20;i++){
+        int minPosition = frontWaistOffset;
+        for(int i =frontWaistOffset-20;i<frontWaistOffset+20;i++){
             if(i<0){
                 i=0;
             }
@@ -129,13 +145,14 @@ public class BodyData {
         width = minBlack*(height/frontHeightPixel);
         frontWaistOffset = minPosition;
 
+        System.out.println("widthhhhh   "+width);
         return width;
     }
 
     public float getHipshotThickness(){
         float thickness = 0;
-        getHipshotWidth();
-        sideHipshotOffset = ((frontHipshotOffset-frontHeadLine)/frontHeightPixel)*sideHeightPixel+sideHeadLine;
+//        getHipshotWidth();
+        sideHipshotOffset = (int)(((float)(frontHipshotOffset-frontHeadLine)/(float)frontHeightPixel)*sideHeightPixel)+sideHeadLine;
         thickness = sideBlack[sideHipshotOffset];
         thickness = thickness*(height/sideHeightPixel);
 
@@ -144,7 +161,7 @@ public class BodyData {
 
     public float getHipshotWidth(){
         float width = 0;
-        frontHipshotOffset = frontHeadLine + frontHeadHeight*(3/8);
+        frontHipshotOffset = (int)(frontHeadLine + frontHeadHeight*(15.0/4.0));
         int maxBlack = frontBlack[frontHipshotOffset];
         int maxPosition = frontHipshotOffset;
         for(int i =frontHipshotOffset-20;i<frontHipshotOffset+20;i++){
@@ -203,9 +220,9 @@ public class BodyData {
     public int getFrontFootLine(Bitmap img){
         int width = img.getWidth();
         int height = img.getHeight();
-        for(int i = height-1;i>0;i++){
+        for(int i = height-1;i>0;i--){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(j,i))==255){
+                if (Color.red(img.getPixel(j,i))==0){
                     return i;
                 }
             }
@@ -216,9 +233,9 @@ public class BodyData {
     public int getSideFootLine(Bitmap img){
         int width = img.getWidth();
         int height = img.getHeight();
-        for(int i = height-1;i>0;i++){
+        for(int i = height-1;i>0;i--){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(j,i))==255){
+                if (Color.red(img.getPixel(j,i))==0){
                     return i;
                 }
             }
@@ -232,7 +249,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = 0;i<height;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(j,i))==255){
+                if (Color.red(img.getPixel(j,i))==0){
                     frontHeadLine = i;
                     return i;
                 }
@@ -247,7 +264,7 @@ public class BodyData {
         int height = img.getHeight();
         for(int i = 0;i<height;i++){
             for(int j=0;j<width;j++){
-                if (Color.red(img.getPixel(j,i))==255){
+                if (Color.red(img.getPixel(j,i))==0){
                     sideHeadLine = i;
                     return i;
                 }
