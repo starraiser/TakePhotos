@@ -643,7 +643,7 @@ public class Pager extends Activity {
                 //img1.setImageBitmap(bitmap1);
 
                 ImageProcess process = new ImageProcess();
-                bitmap = process.filter(bitmap2);
+                bitmap = process.edge(bitmap2);
                 hasPic2=true;
                 img2.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
