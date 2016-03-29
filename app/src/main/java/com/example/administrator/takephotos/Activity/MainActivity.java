@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             breast.setVisibility(View.INVISIBLE);
             waist.setVisibility(View.INVISIBLE);
             hipshot.setVisibility(View.INVISIBLE);
+            result.setVisibility(View.INVISIBLE);
             text.setText("无数据");
         }
 
@@ -255,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             breast.setVisibility(View.VISIBLE);
             waist.setVisibility(View.VISIBLE);
             hipshot.setVisibility(View.VISIBLE);
+            result.setVisibility(View.VISIBLE);
             text.setText("你的信息：");
             height.setText("身高：" + String.valueOf(info.get_height()));
             breast.setText("胸围：" + String.valueOf(info.get_breast()));
@@ -267,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
             breast.setVisibility(View.INVISIBLE);
             waist.setVisibility(View.INVISIBLE);
             hipshot.setVisibility(View.INVISIBLE);
+            result.setVisibility(View.INVISIBLE);
             text.setText("无数据");
         }
     }
