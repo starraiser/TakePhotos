@@ -24,6 +24,13 @@
         <item name="@android:windowExitAnimation">@anim/bottomview_anim_exit</item>
     </style>
 
+    <style name="userName">
+
+        <item name="android:drawableLeft">@drawable/ico_login_mobile</item>
+        <item name="android:hint">请输入用户名</item>
+        <item name="android:maxLength">11</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

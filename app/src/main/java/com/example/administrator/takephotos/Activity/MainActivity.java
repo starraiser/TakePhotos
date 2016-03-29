@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
+import com.example.administrator.takephotos.Process.Evaluate;
 import com.example.administrator.takephotos.R;
 import com.slidingmenu.lib.SlidingMenu;
 
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView waist;
     private TextView hipshot;
     private TextView text;
+    private TextView result;
+    private ImageView setting;
     DBManager database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         waist = (TextView)findViewById(R.id.waist);
         hipshot = (TextView)findViewById(R.id.hipshot);
         text = (TextView)findViewById(R.id.text);
+        result = (TextView)findViewById(R.id.result);
+        setting = (ImageView)findViewById(R.id.setting);
 
         SharedPreferences sharedPreferences = getSharedPreferences("info", Activity.MODE_PRIVATE);  // 获取当前用户id
         userId = sharedPreferences.getInt("userId",-1);
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             breast.setText("胸围：" + String.valueOf(info.get_breast()));
             waist.setText("腰围：" + String.valueOf(info.get_waist()));
             hipshot.setText("臀围：" + String.valueOf(info.get_hipshot()));
+            Evaluate evaluate = new Evaluate();
+            result.setText(evaluate.eva(info));
         } else {
             height.setVisibility(View.INVISIBLE);
             breast.setVisibility(View.INVISIBLE);
@@ -134,6 +142,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu.showMenu();
             }
         });
     }
@@ -227,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         for (int i = 0; i < 1; i++){
             Map<String,String> map = new HashMap<String,String>();
-            map.put("string","退出");
+            map.put("string","退出当前账户");
             list.add(map);
         }
         return list;
@@ -246,6 +260,8 @@ public class MainActivity extends AppCompatActivity {
             breast.setText("胸围：" + String.valueOf(info.get_breast()));
             waist.setText("腰围：" + String.valueOf(info.get_waist()));
             hipshot.setText("臀围：" + String.valueOf(info.get_hipshot()));
+            Evaluate evaluate = new Evaluate();
+            result.setText(evaluate.eva(info));
         } else {
             height.setVisibility(View.INVISIBLE);
             breast.setVisibility(View.INVISIBLE);

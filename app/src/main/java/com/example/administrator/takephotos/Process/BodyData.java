@@ -121,6 +121,8 @@ public class BodyData {
     public float getWaistThickness(){
         float thickness = 0;
 //        getWaistWidth();
+        System.out.println(frontWaistOffset);
+        System.out.println(frontHeadLine);
         sideWaistOffset = (int)(((float)(frontWaistOffset-frontHeadLine)/(float)frontHeightPixel)*sideHeightPixel)+sideHeadLine;
         thickness = sideBlack[sideWaistOffset];
         thickness = thickness*(height/sideHeightPixel);

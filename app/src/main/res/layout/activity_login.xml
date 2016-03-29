@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white_gray"
+    android:background="#f7f7f7"
 
     tools:context=".Activity.Login">
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_above="@+id/checkboxLine"
+        android:layout_centerInParent="true"
         android:background="#FFFFFF"
         android:layout_marginBottom="5dp">
 
@@ -23,9 +23,11 @@
             android:background="#FFFFFF"
             android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:hint="请输入用户名"
             />
 
@@ -45,6 +47,8 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:hint="请输入密码"/>
 
     </LinearLayout>
@@ -53,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@+id/login"
+        android:layout_below="@id/loginLinear"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
@@ -79,7 +83,7 @@
     <TextView
         android:padding="0dp"
         android:id="@+id/login"
-        android:layout_above="@+id/register"
+        android:layout_below="@+id/checkboxLine"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:paddingLeft="16dp"
@@ -97,10 +101,8 @@
 
     <TextView
         android:id="@+id/register"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="100dp"
         android:padding="0dp"
         android:paddingLeft="16dp"
         android:layout_marginTop="8dp"
@@ -109,6 +111,7 @@
         android:paddingBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_below="@+id/login"
         android:gravity="center"
         android:text="注册"
         android:textColor="#FFFFFF"

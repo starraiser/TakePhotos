@@ -15,6 +15,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.Adapter.BVAdapter;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
@@ -452,6 +454,16 @@ public class Pager extends Activity {
                                     finish();
 
                                 } catch (Exception e) {
+                                    Dialog alertDialog = new AlertDialog.Builder(Pager.this).
+                                            setTitle("Warning")
+                                            .setMessage("图片错误，请更换图片")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            }).create();
+                                    alertDialog.show();
                                     e.printStackTrace();
                                 }
                             }
