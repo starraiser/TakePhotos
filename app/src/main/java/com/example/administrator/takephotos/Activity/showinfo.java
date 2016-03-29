@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
+import com.example.administrator.takephotos.Process.Evaluate;
 import com.example.administrator.takephotos.R;
 
 public class showinfo extends Activity {
@@ -16,6 +17,7 @@ public class showinfo extends Activity {
     private TextView Breast;
     private TextView Waist;
     private TextView Hipshot;
+    private TextView result;
 
     private DBManager database;
     private int userId;
@@ -46,10 +48,13 @@ public class showinfo extends Activity {
         Breast = (TextView)findViewById(R.id.breast);
         Waist = (TextView)findViewById(R.id.waist);
         Hipshot = (TextView)findViewById(R.id.hipshot);
+        result = (TextView)findViewById(R.id.result);
 
         Height.setText("你的身高："+String.valueOf(height));
         Breast.setText("你的胸围："+String.valueOf(breast));
         Waist.setText("你的腰围："+String.valueOf(waist));
         Hipshot.setText("你的臀围："+String.valueOf(hipshot));
+        Evaluate evaluate = new Evaluate();
+        result.setText(evaluate.eva(info));
     }
 }

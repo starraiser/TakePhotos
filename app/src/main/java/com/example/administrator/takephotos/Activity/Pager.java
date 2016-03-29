@@ -401,36 +401,36 @@ public class Pager extends Activity {
                                     Bitmap front = filter.filter(bitmap1);
                                     Bitmap side = filter.filter(bitmap2);
                                     BodyData data = new BodyData(Float.parseFloat(height), front, side);
-                                    Bitmap bitmap = Bitmap.createBitmap(side.getWidth(), side.getHeight(), side.getConfig());
-                                    for (int i = 0; i < side.getWidth(); i++) {
-                                        for (int j = 0; j < side.getHeight(); j++) {
-                                            if (j == data.sideWaistOffset) {
-                                                bitmap.setPixel(i, j, Color.RED);
-                                            } else if (j == data.sideHipshotOffset) {
-                                                bitmap.setPixel(i, j, Color.BLUE);
-                                            } else if (j == data.sideBreastOffset) {
-                                                bitmap.setPixel(i, j, Color.GREEN);
-                                            } else {
-                                                bitmap.setPixel(i, j, side.getPixel(i, j));
-                                            }
-                                        }
-                                    }
-                                    img2.setImageBitmap(bitmap);
-                                    Bitmap bitmap2 = Bitmap.createBitmap(front.getWidth(), front.getHeight(), front.getConfig());
-                                    for (int i = 0; i < front.getWidth(); i++) {
-                                        for (int j = 0; j < front.getHeight(); j++) {
-                                            if (j == data.frontBreastOffset) {
-                                                bitmap2.setPixel(i, j, Color.RED);
-                                            } else if (j == data.frontHipshotOffset) {
-                                                bitmap2.setPixel(i, j, Color.BLUE);
-                                            } else if (j == data.frontWaistOffset) {
-                                                bitmap2.setPixel(i, j, Color.GREEN);
-                                            } else {
-                                                bitmap2.setPixel(i, j, front.getPixel(i, j));
-                                            }
-                                        }
-                                    }
-                                    img1.setImageBitmap(bitmap2);
+//                                    Bitmap bitmap = Bitmap.createBitmap(side.getWidth(), side.getHeight(), side.getConfig());
+//                                    for (int i = 0; i < side.getWidth(); i++) {
+//                                        for (int j = 0; j < side.getHeight(); j++) {
+//                                            if (j == data.sideWaistOffset) {
+//                                                bitmap.setPixel(i, j, Color.RED);
+//                                            } else if (j == data.sideHipshotOffset) {
+//                                                bitmap.setPixel(i, j, Color.BLUE);
+//                                            } else if (j == data.sideBreastOffset) {
+//                                                bitmap.setPixel(i, j, Color.GREEN);
+//                                            } else {
+//                                                bitmap.setPixel(i, j, side.getPixel(i, j));
+//                                            }
+//                                        }
+//                                    }
+//                                    img2.setImageBitmap(bitmap);
+//                                    Bitmap bitmap2 = Bitmap.createBitmap(front.getWidth(), front.getHeight(), front.getConfig());
+//                                    for (int i = 0; i < front.getWidth(); i++) {
+//                                        for (int j = 0; j < front.getHeight(); j++) {
+//                                            if (j == data.frontBreastOffset) {
+//                                                bitmap2.setPixel(i, j, Color.RED);
+//                                            } else if (j == data.frontHipshotOffset) {
+//                                                bitmap2.setPixel(i, j, Color.BLUE);
+//                                            } else if (j == data.frontWaistOffset) {
+//                                                bitmap2.setPixel(i, j, Color.GREEN);
+//                                            } else {
+//                                                bitmap2.setPixel(i, j, front.getPixel(i, j));
+//                                            }
+//                                        }
+//                                    }
+//                                    img1.setImageBitmap(bitmap2);
                                     info.set_breast(data.breastWidth, data.breastThick);
                                     info.set_waist(data.waistWidth, data.waistThick);
                                     info.set_hipshot(data.hipshotWidth, data.hipshotThick);
