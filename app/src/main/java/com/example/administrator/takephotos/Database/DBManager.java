@@ -118,6 +118,10 @@ public class DBManager {
         return info;
     }
 
+    public void clearInfo(int userId){
+        db.execSQL("delete from USERINFO where userId = ?",new String[]{String.valueOf(userId)});
+    }
+
     /**
      * 登录信息缓存操作
      */

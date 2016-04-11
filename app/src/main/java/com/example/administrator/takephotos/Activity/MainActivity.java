@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.Database.DBManager;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView setting;
     DBManager database;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         database = new DBManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -136,6 +137,33 @@ public class MainActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         switch (arg2) {
                             case 0:
+                                if(database.getInfoById(userId)!=null){
+                                    Dialog alertDialog = new AlertDialog.Builder(MainActivity.this).
+                                            setTitle("Warning")
+                                            .setMessage("确定要清除数据吗")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    database.clearInfo(userId);
+                                                    Toast toast = Toast.makeText(MainActivity.this,"数据已清除",Toast.LENGTH_SHORT);
+                                                    toast.show();
+                                                    onResume();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            })
+                                            .create();
+                                    alertDialog.show();
+                                } else {
+                                    Toast toast = Toast.makeText(MainActivity.this,"无数据",Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                                break;
+                            case 1:
                                 ActivityTaskManager.getInstance().closeAllActivityExceptOne("Login");  // 退出到登录页面
                                 break;
                             default:
@@ -240,10 +268,16 @@ public class MainActivity extends AppCompatActivity {
     }
     private List<Map<String ,String>> getData2(){  // 获取侧滑菜单内容
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        for (int i = 0; i < 1; i++){
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("string","退出当前账户");
-            list.add(map);
+        for (int i = 0; i < 2; i++){
+            if(i==0) {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("string", "清除数据");
+                list.add(map);
+            } else {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("string", "退出当前账户");
+                list.add(map);
+            }
         }
         return list;
     }
