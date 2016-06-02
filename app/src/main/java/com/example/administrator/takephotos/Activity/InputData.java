@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.Database.DBManager;
 import com.example.administrator.takephotos.Entity.Info;
 import com.example.administrator.takephotos.R;
@@ -30,6 +31,7 @@ public class InputData extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_data);
         database = new DBManager(this);
+        ActivityTaskManager.getInstance().putActivity("InputData", this);
 
         SharedPreferences sharedPreferences = getSharedPreferences("info", Activity.MODE_PRIVATE);  // 获取当前用户id
         userId = sharedPreferences.getInt("userId",-1);

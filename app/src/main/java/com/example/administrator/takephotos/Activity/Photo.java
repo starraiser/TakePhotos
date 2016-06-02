@@ -17,6 +17,7 @@ import java.io.File;
 
 import android.widget.RelativeLayout;
 
+import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.R;
 
 public class Photo extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class Photo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_photo);
+        ActivityTaskManager.getInstance().putActivity("Photo", this);
 
         img1=(ImageView)findViewById(R.id.image1);
         img2=(ImageView)findViewById(R.id.image2);

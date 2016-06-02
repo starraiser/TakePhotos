@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.administrator.takephotos.ActivityManager.ActivityTaskManager;
 import com.example.administrator.takephotos.R;
 
 public class showImage extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class showImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
+        ActivityTaskManager.getInstance().putActivity("showImage", this);
 
         pic = (ImageView)findViewById(R.id.showPic);
 

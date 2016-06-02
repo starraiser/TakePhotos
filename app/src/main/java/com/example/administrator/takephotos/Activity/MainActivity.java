@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 1:
+                                System.out.println("exitttttttttttttlogin");
                                 ActivityTaskManager.getInstance().closeAllActivityExceptOne("Login");  // 退出到登录页面
                                 break;
                             default:

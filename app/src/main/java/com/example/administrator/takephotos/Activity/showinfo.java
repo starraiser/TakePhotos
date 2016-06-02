@@ -29,7 +29,7 @@ public class showinfo extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showinfo);
-        ActivityTaskManager.getInstance().putActivity("MainActivity", this);
+        ActivityTaskManager.getInstance().putActivity("showinfo", this);
 
         database = new DBManager(this);
 //        Intent intent = new Intent();
@@ -66,9 +66,7 @@ public class showinfo extends Activity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("231321321321");
                 finish();
-                ActivityTaskManager.getInstance().closeAllActivityExceptOne("MainActivity");  // 退出到登录页面
             }
         });
     }

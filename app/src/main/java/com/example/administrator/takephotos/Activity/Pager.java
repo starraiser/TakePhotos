@@ -98,6 +98,7 @@ public class Pager extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager);
+        ActivityTaskManager.getInstance().putActivity("Pager", this);
         database = new DBManager(this);
 
         img1 = (PhotoView)findViewById(R.id.img1);
